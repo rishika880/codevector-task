@@ -5,6 +5,18 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "CodeVector Product API",
+    endpoints: {
+      products: "/products?limit=10",
+      products_with_cursor: "/products?limit=10&cursor=<next_cursor>",
+      products_by_category: "/products?category=Electronics&limit=10",
+      categories: "/categories"
+    }
+  });
+});
+
 app.get("/products", async (req, res) => {
   try {
     const limit = Number(req.query.limit) || 10;
